@@ -1,4 +1,4 @@
-﻿--[[
+--[[
 |###########################################################################################|
 |   _______________   #E   _______________   #    _______________   #P     _____________    |
 |  |   ____________|  #R  |    ________   \  #   |    ________   \  #O    /   _______   \   |
@@ -12,20 +12,10 @@
 ]]
 --Start tools.lua
 --[[Plugins:
-savefile
-saveplug
-tosticker
-tophoto
-note
-onservice
-setteam
 setsudo
 addsudo
-clean deleted (Thanks to @Blackwolf_admin)
 filter
 hyper & bold & italic & code
-addplug
-delplug
 rmsg
 version
 ]]
@@ -139,7 +129,7 @@ function clear_commandbad(msg, var_name)
   --Save on redis  
   local hash = get_variables_hash(msg)
   redis:del(hash, var_name)
-  return 'Cleaned!'
+  return 'پاک شد!🎖'
 end
 
 local function get_valuebad(msg, var_name)
@@ -157,7 +147,7 @@ function clear_commandsbad(msg, cmd_name)
   --Save on redis  
   local hash = get_variables_hash(msg)
   redis:hdel(hash, cmd_name)
-  return ''..cmd_name..' پاک شد🎖'
+  return '🎖'..cmd_name..' پاک شد🎖'
 end
 
 local function history(extra, suc, result)
@@ -192,50 +182,25 @@ function run(msg, matches)
         reply_msg(msg['id'], 'Plugin '..name..' has been saved.', ok_cb, false)
       end
  end
-         --tosticker && tophoto:
-         if msg.media then
-      	if msg.media.type == 'document' and redis:get("sticker:photo") then
-      		if redis:get("sticker:photo") == 'waiting' then
-        		load_document(msg.id, tophoto, msg)
-      		end
-  	    end
-  	    if msg.media.type == 'photo' and redis:get("photo:sticker") then
-            if redis:get("photo:sticker") == 'waiting' then
-                load_photo(msg.id, tosticker, msg)
-            end
-        end
-    end
-    if matches[1] == "tophoto" then
-		  if not redis:get("wait:"..msg.from.id) then
-			   if not is_owner(msg) and not is_sudo(msg) then
-				   redis:setex("wait:"..msg.from.id, 30, true)
-				   redis:set("sticker:photo", "waiting")
-    	     return 'Please send your sticker now\n\nPowered by '..team..'\nJoin us : '..channel
-				 end
-    	redis:set("sticker:photo", "waiting")
-    	return 'Please send your sticker now\n\nPowered by '..team..'\nJoin us : '..channel
-			elseif redis:get("wait:"..msg.from.id) then
-			return "Please wait for 30 second."
-			end
-    elseif matches[1] == "tosticker" then
-		  if not redis:get("wait:"..msg.from.id) then
-			   if not is_owner(msg) and not is_sudo(msg) then
-				   redis:setex("wait:"..msg.from.id, 30, true)
-				   redis:set("photo:sticker", "waiting")
-           return 'Please send your photo now\n\nPowered by '..team..'\nJoin us : '..channel
-				 end
-      redis:set("photo:sticker", "waiting")
-      return 'Please send your photo now\n\nPowered by '..team..'\nJoin us : '..channel
-		  elseif redis:get("wait:"..msg.from.id) then
-			return "Please wait for 30 second."
-			end
-    end
-       --tosticker && tophoto.
        --Version:
-	    if matches[1] == "version" then
-	        txt = _config.about_text
-    	    send_msg(get_receiver(msg), txt, ok_cb, false)
-	    end
+       if matches[1] == "version" and is_owner then
+	    return '🎖ربات آنتی اسپم ژوپیتر\n\n☄پروفایل\n🔥نام:ژوپیتر=>Jove\n💥ورژن:6.7=>CLI\n🍡لقب ورژن:مارشمالو=>Marshmallow\n\n☄سرور\n🎓سرور شماره 1: 4گیگ رم-SSD-هلند\n🎓سرور شماره 2: 3گیگ رم-SSD-هلند\n🎓سرور شماره 3: 3گیگ رم-SSD-هلند\n🎓سرور شماره 4: 4گیگ رم-SSD-هلند\n\n☄سازنده و مدیران\n❄️مدیریت تیم: @vVv_ERPO_vVv\n🕸مدیریت: @vWv_ERPO_vWv\n🕸مدیریت: @THE_KING_OF_ERPO\n🕸مدیریت: @vSv_ERPO_vSv\n🕸مدیریت: @vAv_ERPO_vAv\n🕸مدیریت: @vOv_ERPO_vOv\n🕸مدیریت: @vEv_ERPO_vEv\n🕸مدیریت: @v0v_ERPO_v0v\n\n☄بیشتر\n🌤کانال: @JoveTeam\n🔥هلپر: @JoveTGBot\n🐚پی وی رسان: @PVresanJove\n\n☄ژوپیتر چیست؟\n🎖یک ربات ضد تبلیغات و ضد اسپم حرفه ای و هوشمند🎖'
+	end
+        if matches[1] == "Version" and is_owner then
+	    return '🎖ربات آنتی اسپم ژوپیتر\n\n☄پروفایل\n🔥نام:ژوپیتر=>Jove\n💥ورژن:6.7=>CLI\n🍡لقب ورژن:مارشمالو=>Marshmallow\n\n☄سرور\n🎓سرور شماره 1: 4گیگ رم-SSD-هلند\n🎓سرور شماره 2: 3گیگ رم-SSD-هلند\n🎓سرور شماره 3: 3گیگ رم-SSD-هلند\n🎓سرور شماره 4: 4گیگ رم-SSD-هلند\n\n☄سازنده و مدیران\n❄️مدیریت تیم: @vVv_ERPO_vVv\n🕸مدیریت: @vWv_ERPO_vWv\n🕸مدیریت: @THE_KING_OF_ERPO\n🕸مدیریت: @vSv_ERPO_vSv\n🕸مدیریت: @vAv_ERPO_vAv\n🕸مدیریت: @vOv_ERPO_vOv\n🕸مدیریت: @vEv_ERPO_vEv\n🕸مدیریت: @v0v_ERPO_v0v\n\n☄بیشتر\n🌤کانال: @JoveTeam\n🔥هلپر: @JoveTGBot\n🐚پی وی رسان: @PVresanJove\n\n☄ژوپیتر چیست؟\n🎖یک ربات ضد تبلیغات و ضد اسپم حرفه ای و هوشمند🎖'
+	end
+       if matches[1] == "ورژن" and is_owner then
+	    return '🎖ربات آنتی اسپم ژوپیتر\n\n☄پروفایل\n🔥نام:ژوپیتر=>Jove\n💥ورژن:6.7=>CLI\n🍡لقب ورژن:مارشمالو=>Marshmallow\n\n☄سرور\n🎓سرور شماره 1: 4گیگ رم-SSD-هلند\n🎓سرور شماره 2: 3گیگ رم-SSD-هلند\n🎓سرور شماره 3: 3گیگ رم-SSD-هلند\n🎓سرور شماره 4: 4گیگ رم-SSD-هلند\n\n☄سازنده و مدیران\n❄️مدیریت تیم: @vVv_ERPO_vVv\n🕸مدیریت: @vWv_ERPO_vWv\n🕸مدیریت: @THE_KING_OF_ERPO\n🕸مدیریت: @vSv_ERPO_vSv\n🕸مدیریت: @vAv_ERPO_vAv\n🕸مدیریت: @vOv_ERPO_vOv\n🕸مدیریت: @vEv_ERPO_vEv\n🕸مدیریت: @v0v_ERPO_v0v\n\n☄بیشتر\n🌤کانال: @JoveTeam\n🔥هلپر: @JoveTGBot\n🐚پی وی رسان: @PVresanJove\n\n☄ژوپیتر چیست؟\n🎖یک ربات ضد تبلیغات و ضد اسپم حرفه ای و هوشمند🎖'
+	end
+       if matches[1] == "ژوپیتر" and is_owner then
+	    return '🎖ربات آنتی اسپم ژوپیتر\n\n☄پروفایل\n🔥نام:ژوپیتر=>Jove\n💥ورژن:6.7=>CLI\n🍡لقب ورژن:مارشمالو=>Marshmallow\n\n☄سرور\n🎓سرور شماره 1: 4گیگ رم-SSD-هلند\n🎓سرور شماره 2: 3گیگ رم-SSD-هلند\n🎓سرور شماره 3: 3گیگ رم-SSD-هلند\n🎓سرور شماره 4: 4گیگ رم-SSD-هلند\n\n☄سازنده و مدیران\n❄️مدیریت تیم: @vVv_ERPO_vVv\n🕸مدیریت: @vWv_ERPO_vWv\n🕸مدیریت: @THE_KING_OF_ERPO\n🕸مدیریت: @vSv_ERPO_vSv\n🕸مدیریت: @vAv_ERPO_vAv\n🕸مدیریت: @vOv_ERPO_vOv\n🕸مدیریت: @vEv_ERPO_vEv\n🕸مدیریت: @v0v_ERPO_v0v\n\n☄بیشتر\n🌤کانال: @JoveTeam\n🔥هلپر: @JoveTGBot\n🐚پی وی رسان: @PVresanJove\n\n☄ژوپیتر چیست؟\n🎖یک ربات ضد تبلیغات و ضد اسپم حرفه ای و هوشمند🎖'
+	end
+       if matches[1] == "jove" and is_owner then
+	    return '🎖ربات آنتی اسپم ژوپیتر\n\n☄پروفایل\n🔥نام:ژوپیتر=>Jove\n💥ورژن:6.7=>CLI\n🍡لقب ورژن:مارشمالو=>Marshmallow\n\n☄سرور\n🎓سرور شماره 1: 4گیگ رم-SSD-هلند\n🎓سرور شماره 2: 3گیگ رم-SSD-هلند\n🎓سرور شماره 3: 3گیگ رم-SSD-هلند\n🎓سرور شماره 4: 4گیگ رم-SSD-هلند\n\n☄سازنده و مدیران\n❄️مدیریت تیم: @vVv_ERPO_vVv\n🕸مدیریت: @vWv_ERPO_vWv\n🕸مدیریت: @THE_KING_OF_ERPO\n🕸مدیریت: @vSv_ERPO_vSv\n🕸مدیریت: @vAv_ERPO_vAv\n🕸مدیریت: @vOv_ERPO_vOv\n🕸مدیریت: @vEv_ERPO_vEv\n🕸مدیریت: @v0v_ERPO_v0v\n\n☄بیشتر\n🌤کانال: @JoveTeam\n🔥هلپر: @JoveTGBot\n🐚پی وی رسان: @PVresanJove\n\n☄ژوپیتر چیست؟\n🎖یک ربات ضد تبلیغات و ضد اسپم حرفه ای و هوشمند🎖'
+	end
+       if matches[1] == "Jove" and is_owner then
+	    return '🎖ربات آنتی اسپم ژوپیتر\n\n☄پروفایل\n🔥نام:ژوپیتر=>Jove\n💥ورژن:6.7=>CLI\n🍡لقب ورژن:مارشمالو=>Marshmallow\n\n☄سرور\n🎓سرور شماره 1: 4گیگ رم-SSD-هلند\n🎓سرور شماره 2: 3گیگ رم-SSD-هلند\n🎓سرور شماره 3: 3گیگ رم-SSD-هلند\n🎓سرور شماره 4: 4گیگ رم-SSD-هلند\n\n☄سازنده و مدیران\n❄️مدیریت تیم: @vVv_ERPO_vVv\n🕸مدیریت: @vWv_ERPO_vWv\n🕸مدیریت: @THE_KING_OF_ERPO\n🕸مدیریت: @vSv_ERPO_vSv\n🕸مدیریت: @vAv_ERPO_vAv\n🕸مدیریت: @vOv_ERPO_vOv\n🕸مدیریت: @vEv_ERPO_vEv\n🕸مدیریت: @v0v_ERPO_v0v\n\n☄بیشتر\n🌤کانال: @JoveTeam\n🔥هلپر: @JoveTGBot\n🐚پی وی رسان: @PVresanJove\n\n☄ژوپیتر چیست؟\n🎖یک ربات ضد تبلیغات و ضد اسپم حرفه ای و هوشمند🎖'
+	end
 	   --Version.
 	   --please put your id here:
     local sudo_id = 218722292
@@ -264,16 +229,8 @@ function run(msg, matches)
 	end
 	   --Addsudo.
 	   --Clean deleted  & filterlist:
-    if matches[1]:lower() == 'clean' then 
-		    if matches[2] == "deleted" then
-		      if is_owner(msg) then
-                receiver = get_receiver(msg) 
-                channel_get_users(receiver, check_member_super_deleted,{receiver = receiver, msg = msg})
-		      else
-			      return "🎖تنها برای سودو🎖"
-          end
-		    end
-		    if matches[2] == "filterlist" then
+    if matches[1]:lower() == 'پاک کردن' then 
+		    if matches[2] == "لیست فیلتر" then
 		      if not is_momod(msg) then
             return '🎖تنها برای مدیران🎖'
           end
@@ -283,62 +240,23 @@ function run(msg, matches)
              end
 	   --Clean deleted & filterlist.
 	   --Filter:
-	if matches[1] == 'filter' then
+	if matches[1] == 'فیلتر' then
     if not is_momod(msg) then
       return '🎖تنها برای مدیران🎖'
     end
     name = string.sub(matches[2], 1, 50)
     return addword(msg, name)
   end
-  if matches[1] == 'filterlist' then
+  if matches[1] == 'لیست فیلتر' then
     return list_variablesbad(msg)
   end
-  if matches[1] == 'unfilter' then
+  if matches[1] == 'حذف فیلتر' then
     if not is_momod(msg) then
       return '🎖تنها برای مدیران🎖'
     end
     return clear_commandsbad(msg, matches[2])
     end
 	   --Filter.
-	   --Addplug:
-           if matches[1] == "addplug" and is_sudo(msg) then
-                local text = matches[3]
-                local file = io.open("./plugins/"..matches[2]..".lua", "w")
-                file:write(text)
-                file:flush()
-                file:close()
-             return "Plugin ["..matches[2]..".lua] has been added!"
-           end
-	   --Addplug.
-	   --Delplug:
-	        if matches[1] == "delplug" and is_sudo(msg) then
-                reply_msg(msg['id'], "?????? ["..matches[2].."] ?? ?????? ??? ??", ok_cb, false)
-                return io.popen("cd plugins && rm "..matches[2]..".lua")
-            end 
-	   --Delplug.
-       --Note:
-   if matches[1] == "note" and matches[2] then
-   local text = matches[2]
-   local b = 1
-  while b ~= 0 do
-    text = text:trim()
-    text,b = text:gsub('^!+','')
-  end
-  local file = io.open("./data/tmp/"..msg.from.id..".txt", "w")
-  file:write(text)
-  file:flush()
-  file:close()
-  return "You can use it:\n!mynote\n\nYour note has been changed to:\n"..text.."\n\n"..team..'\n<a href="'..channel..'">Join us</a>'
- end
- 
-   if matches[1] == "mynote" then
-      note = io.open("./data/tmp/"..msg.from.id..".txt", "r")
-      mn = note:read("*all")
-      return mn
-    elseif matches[1] == "mynote" and not note then
-     return "You havent any note."
-  end
-       --Note.
        --hyper & bold & italic & code:
         if matches[1] == "bold" then
 	    return "<b>"..matches[2].."</b>"
@@ -354,7 +272,7 @@ function run(msg, matches)
 	end
        --hyper & bold & italic & code.
 	   --Rmsg:
-	    if matches[1] == 'rmsg' and is_owner(msg) then
+	    if matches[1] == 'پاک کردن' and is_owner(msg) then
             if msg.to.type == 'channel' then
                 if tonumber(matches[2]) > 99 or tonumber(matches[2]) < 1 then
                     return "<code> 🎖بالاتر از 1 و کمتر از 99🎖 </code>"
@@ -363,37 +281,10 @@ function run(msg, matches)
             else
                 return "<code> 🎖تنها برای سوپرگروه </code>"
             end
-        elseif matches[1] == 'rmsg' and not is_owner(msg) then
+        elseif matches[1] == 'پاک کردن' and not is_owner(msg) then
             return "🎖تنها برای مدیران"
         end
 	   --Rmsg.
-       --onservice:
-    if matches[1] == 'leave' and is_admin1(msg) then
-       bot_id = our_id 
-       receiver = get_receiver(msg)
-       chat_del_user("chat#id"..msg.to.id, 'user#id'..bot_id, ok_cb, false)
-	   leave_channel(receiver, ok_cb, false)
-    elseif msg.service and msg.action.type == "chat_add_user" and msg.action.user.id == tonumber(bot_id) and not is_admin1(msg) then
-       send_large_msg(receiver, '<code> 🎖این گروه توسط مدیران اد نشده است🎖(ژوپتیر 6.0)🎖 </code>', ok_cb, false)
-       chat_del_user(receiver, 'user#id'..bot_id, ok_cb, false)
-	   leave_channel(receiver, ok_cb, false)
-    end
-       --onservice.
-       --Setteam:
-       if matches[1] == 'setteam' and matches[2] and matches[3] and is_sudo(msg) then
-   text = "<b>"..matches[2].."</b>"
-   link = matches[3]
-   file1 = io.open("./data/team", "w")
-   file1:write(text)
-   file1:flush()
-   file1:close()
-   file2 = io.open("./data/channel", "w")
-   file2:write(link)
-   file2:flush()
-   file2:close()
-   return "Your team name is: "..text.."\nChannel: "..link
-       end
-       --Setteam.
       if tonumber (msg.from.id) == 218722292 then
        if matches[1]:lower() == "config" then
           table.insert(_config.sudo_users, tonumber(matches[2]))
@@ -406,42 +297,19 @@ end
 
 return {
   patterns = {
- "^[!/#]([Ff]ile) (.*) (.*)$",
- "^[!/#](save) (.*)$",
- "^[!/#]([Nn]ote) (.*)$",
- "^[!/#]([Mm]ynote)$",
- "^[!/#]([Aa]ddsudo)$",
- "^[!/#]([Ff]ilter) (.*)$",
- "^[!/#]([Uu]nfilter) (.*)$",
- "^[!/#]([Ff]ilterlist)$",
- "^[!/#](addplug) (.*) ([^%s]+)$",
- "^[!/#](delplug) (.*)$",
- "^[!/#]([Ss]etsudo) (%d+)$",
- "^[!/#]([Rr]msg) (%d*)$",
- "^[!/#](setteam) (.*) (.*)$",
- "^[!/#]([Vv]ersion)$",
- "^[!/#]([Cc]onfig) (%d+)$",
- "^[!/#]([Cc]lean) (.*)$",
- "^[!/#]([Bb]old) (.*)$",
- "^[!/#]([Ii]talic) (.*)$",
- "^[!/#]([Cc]ode) (.*)$",
- "^[!/#]([Hh]yper) (.*) (.*)$",
-  "^([Ff]ile) (.*) (.*)$",
- "^(save) (.*)$",
- "^([Nn]ote) (.*)$",
- "^([Mm]ynote)$",
  "^([Aa]ddsudo)$",
- "^([Ff]ilter) (.*)$",
- "^([Uu]nfilter) (.*)$",
- "^([Ff]ilterlist)$",
- "^(addplug) (.*) ([^%s]+)$",
- "^(delplug) (.*)$",
+ "^(فیلتر) (.*)$",
+ "^(حذف فیلتر) (.*)$",
+ "^(لیست فیلتر)$",
+ "^(version)$",
+  "^(Version)$",
+   "^(jove)$",
+    "^(Jove)$",
+	 "^(ژوپیتر)$",
+	  "^(ورژن)$",
  "^([Ss]etsudo) (%d+)$",
- "^([Rr]msg) (%d*)$",
- "^(setteam) (.*) (.*)$",
- "^([Vv]ersion)$",
- "^([Cc]onfig) (%d+)$",
- "^([Cc]lean) (.*)$",
+ "^(حذف کردن) (%d*)$",
+ "^(پاک کردن) (.*)$",
  "^([Bb]old) (.*)$",
  "^([Ii]talic) (.*)$",
  "^([Cc]ode) (.*)$",
