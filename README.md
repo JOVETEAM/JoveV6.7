@@ -18,14 +18,15 @@
 </thead><tbody>
 </tbody></table>
 
-<div class="highlight highlight-source-shell"><pre>cd jove
-git clone https://github.com/HiddenErPo/tg
-cd tg
-git clone https://github.com/Rondoozle/tgl
-cd tgl
-git clone https://github.com/vysheng/tl-parser
-cd
-cd jove
-chmod +x launch.sh
-./launch.sh install
-./launch.sh</span></span></pre></div>
+<div class="highlight highlight-source-shell"><pre>وقتی وارد سرور شدید(حالا به هرروشی با اندروید توسط ConnectBot یا باسیستم توسط putty)
+دستور زیرو بزنید
+git clone https://github.com/JOVETEAM/jove
+سپس دستور
+chmod +x install
+و بعد از اون دستور
+./install
+بزنید..فرایند نصب ربات برای خودش پیش میره و تا زمانی میرسه که مینویسه 
+phone:
+دراینجا شماره ربات خودتونو همراه باپیش شماره (برای ایران +98) بزنید
+سپس درخواست کد میکنه..کد رو بزنید و وقتی وارد شد ترمینال رو ببندید
+به همین راحتی رباتتون نصب شد😊 </span></span></pre></div>
